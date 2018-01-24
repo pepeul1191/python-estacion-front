@@ -6,7 +6,7 @@ from views.tipo_estacion import tipo_estacion_view
 
 app = Bottle()
 
-@hook('after_request')
+@hook('before_request')
 def enable_cors():
 	response.headers['Access-Control-Allow-Origin'] = '*'
 	response.headers['x-powered-by'] = 'Ubuntu'
@@ -28,4 +28,4 @@ if __name__ == '__main__':
 	app.mount('/estacion', estacion_view)
 	app.mount('/tipo_estacion', tipo_estacion_view)
 	app.run(host='localhost', port=3000, debug=True, reloader=True)
-	#app.run(host='localhost', port=3041, debug=True)
+	#app.run(host='localhost', port=3000, debug=True)

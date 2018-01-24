@@ -60,3 +60,4 @@ Hacer vistas HTML para dar mantenimiento a las tablas 'estaciones' y 'tipo_estac
 
 + https://bottlepy.org/docs/dev/
 + https://www.sqlalchemy.org/
++ http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html
