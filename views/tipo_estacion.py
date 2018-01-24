@@ -25,13 +25,48 @@ def crear():
 	try:
 		data = json.loads(request.body.read().decode('UTF-8'))
 		session = session_db()
-		nombre = data['nombre']
-		s = TipoEstacion(nombre = nombre)
+		s = TipoEstacion(nombre = data['nombre'])
 		session.add(s)
 		session.flush()
 		nuevo_id = s.id
-		rpta = {'tipo_mensaje' : 'success', 'mensaje' : ['Se ha creado un tipo estacións', nuevo_id]}
+		session.commit()
+		rpta = {'tipo_mensaje' : 'success', 'mensaje' : ['Se ha creado un tipo estación', nuevo_id]}
 	except Exception as e:
 		session.rollback()
 		rpta = {'tipo_mensaje' : 'error', 'mensaje' : ['Se ha producido un error en crear un nuevo tipo de estación', str(e)]}
+	return json.dumps(rpta)
+
+@tipo_estacion_view.route('/editar', method='OPTIONS')
+@tipo_estacion_view.route('/editar', method='POST')
+@enable_cors
+def editar():
+	rpta = None
+	nuevo_id = None
+	try:
+		data = json.loads(request.body.read().decode('UTF-8'))
+		session = session_db()
+		session.query(TipoEstacion).filter_by(id = data['id']).update(data)
+		session.commit()
+		rpta = {'tipo_mensaje' : 'success', 'mensaje' : ['Se ha editado un tipo estacións', nuevo_id]}
+	except Exception as e:
+		session.rollback()
+		rpta = {'tipo_mensaje' : 'error', 'mensaje' : ['Se ha producido un error en editar un tipo de estación', str(e)]}
+	return json.dumps(rpta)
+
+
+@tipo_estacion_view.route('/eliminar', method='OPTIONS')
+@tipo_estacion_view.route('/eliminar', method='POST')
+@enable_cors
+def eliminar():
+	rpta = None
+	nuevo_id = None
+	try:
+		data = json.loads(request.body.read().decode('UTF-8'))
+		session = session_db()
+		session.query(TipoEstacion).filter_by(id = data['id']).delete()
+		session.commit()
+		rpta = {'tipo_mensaje' : 'success', 'mensaje' : ['Se ha eliminado un tipo estacións', nuevo_id]}
+	except Exception as e:
+		session.rollback()
+		rpta = {'tipo_mensaje' : 'error', 'mensaje' : ['Se ha producido un error en eliminar un tipo de estación', str(e)]}
 	return json.dumps(rpta)
