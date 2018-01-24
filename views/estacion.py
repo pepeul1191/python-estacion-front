@@ -5,10 +5,12 @@ from bottle import Bottle, request
 from sqlalchemy.sql import select
 from config.models import Estacion
 from config.database import engine, session_db
+from config.cors import enable_cors
 
 estacion_view = Bottle()
 
 @estacion_view.route('/listar', method='GET')
+@enable_cors
 def listar():
 	conn = engine.connect()
 	stmt = select([Estacion])
