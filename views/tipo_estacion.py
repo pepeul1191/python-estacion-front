@@ -41,13 +41,12 @@ def crear():
 @enable_cors
 def editar():
 	rpta = None
-	nuevo_id = None
 	try:
 		data = json.loads(request.body.read().decode('UTF-8'))
 		session = session_db()
 		session.query(TipoEstacion).filter_by(id = data['id']).update(data)
 		session.commit()
-		rpta = {'tipo_mensaje' : 'success', 'mensaje' : ['Se ha editado un tipo estacións', nuevo_id]}
+		rpta = {'tipo_mensaje' : 'success', 'mensaje' : ['Se ha editado un tipo estacións']}
 	except Exception as e:
 		session.rollback()
 		rpta = {'tipo_mensaje' : 'error', 'mensaje' : ['Se ha producido un error en editar un tipo de estación', str(e)]}
@@ -59,13 +58,12 @@ def editar():
 @enable_cors
 def eliminar():
 	rpta = None
-	nuevo_id = None
 	try:
 		data = json.loads(request.body.read().decode('UTF-8'))
 		session = session_db()
 		session.query(TipoEstacion).filter_by(id = data['id']).delete()
 		session.commit()
-		rpta = {'tipo_mensaje' : 'success', 'mensaje' : ['Se ha eliminado un tipo estacións', nuevo_id]}
+		rpta = {'tipo_mensaje' : 'success', 'mensaje' : ['Se ha eliminado un tipo estacións']}
 	except Exception as e:
 		session.rollback()
 		rpta = {'tipo_mensaje' : 'error', 'mensaje' : ['Se ha producido un error en eliminar un tipo de estación', str(e)]}
