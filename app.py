@@ -27,5 +27,5 @@ def send_static(filename):
 if __name__ == '__main__':
 	app.mount('/estacion', estacion_view)
 	app.mount('/tipo_estacion', tipo_estacion_view)
-	app.run(host='localhost', port=3025, debug=True, reloader=True)
+	app.run(host='localhost', port=3000, debug=True, reloader=True)
 	#app.run(host='localhost', port=3041, debug=True)
